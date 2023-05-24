@@ -129,3 +129,14 @@ resource "aws_lb_listener_rule" "asg" {
 		target_group_arn = aws_lb_target_group.asg.arn
 	}
 }
+
+terraform {
+	backend "s3" {
+		bucket = "terraform-up-and-running-state-stupidawsrules"
+		key = "stage/services/webserver-cluster/terraform.tfstate"
+		region = "us-east-2"
+
+		dynamodb_table = "terraform-up-and-running-locks"
+		encrypt = true
+	}
+}
